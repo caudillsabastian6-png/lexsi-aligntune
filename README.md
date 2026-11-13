@@ -35,17 +35,29 @@ unknown" without damaging control accuracy. Before any training use it passed
 
 Dataset: https://huggingface.co/datasets/CardCauldronTCG/lexsi-dataset-b
 
-## Fine-tune
+## Fine-tune — GATE PASS ✅
 
-LoRA (rank 16, alpha 32, 60 steps, checkpoints at 20/40/60) trained on
-Dataset B, then re-graded on the same exam. The gate was pre-registered:
+LoRA (rank 16, alpha 32, learning rate 1e-4 cosine, 60 steps, checkpoints
+at 20/40/60, completion-only loss) trained on Dataset B, then re-graded on
+the same exam. The gate was pre-registered before training started:
 
 - **PASS** = trap hallucination ≤ 10%, control ≥ 58/60, absent ≤ 6.7%,
   0 generation failures.
 
-If the gate is not met, the honest fallback is Dataset B alone; no
-tuned-model claims are made without gate numbers. Training is in progress;
-the final gate verdict will be reported by resubmission before the deadline.
+Checkpoint-60 result (exam-v1, 150 items):
+
+| Metric | Baseline | Tuned (ckpt-60) | Gate |
+|---|---|---|---|
+| Trap hallucination | 20.0% (12/60) | **0.0% (0/60)** | ≤10% |
+| Control accuracy | 98.3% (59/60) | **100% (60/60)** | ≥58/60 |
+| Absent hallucination | 6.7% (2/30) | **0.0% (0/30)** | ≤6.7% |
+| Generation failures | 0 | **0** | 0 |
+
+**Verdict: PASS on every leg — 150/150 items correct.** One honest note:
+the 18 Dataset B training rows are memorized during training by design
+(training loss → ~0). The exam above is a separate 150-item set the model
+was not trained on; generalization is what it measures. Full record:
+`FINETUNE-RUN-RESULTS-2026-11-12.md`.
 
 Model: https://huggingface.co/CardCauldronTCG/aya-expanse-8b-lexsi-aligntune
 
@@ -73,6 +85,7 @@ reproducible from the recorded run configuration.
   baseline runner and grader
 - `exam-v1.csv` — the 150-item development exam
 - `FINETUNE-PROTOCOL-2026-11-12.md` — the pre-registered fine-tune protocol
+- `FINETUNE-RUN-RESULTS-2026-11-12.md` — training runs and the gate verdict
 - `BASELINE-AUDIT.md` — baseline audit record
 
 ## Links
