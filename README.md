@@ -33,6 +33,11 @@ A fenced curriculum of corrected responses teaching "say unknown when it is
 unknown" without damaging control accuracy. Before any training use it passed
 15/15 designated-fake checks and 15/15 spot checks.
 
+Re-audited in full on Nov 15, 2026: 14 of the 15 corrected responses were
+confirmed verbatim and one (LEX-T048) was tightened for directness. The
+tuned model was trained on the pre-tightening text — see the addendum in
+`FINETUNE-RUN-RESULTS-2026-11-12.md` and `SPOTCHECK-2026-11-15.md`.
+
 Dataset: https://huggingface.co/datasets/CardCauldronTCG/lexsi-dataset-b
 
 ## Fine-tune — GATE PASS ✅

@@ -165,3 +165,37 @@ $20, auto-recharge off):
 - Adapters for checkpoints 20/40/60 written 19:47:24 UTC; merges ran
   60 → 40 → 20 (GGUF-60 landed 19:50:53 UTC); job DONE at 19:57:59
   UTC, elapsed 13.3 min in-job.
+
+## Addendum — post-tune Dataset B spot-check correction (Nov 15, 2026)
+
+During the Stage 1 resubmission window, all 15 Dataset B corrected
+responses were re-audited line by line against their exam sources, the
+underlying card catalogue, and the gold grading notes (full record:
+`SPOTCHECK-2026-11-15.md`). Verdicts: 14 RIGHT (correct, grounded, no
+hallucination), 1 SOFT, 0 WRONG.
+
+The soft one was LEX-T048 (Lapras, Sword & Shield #48): its corrected
+response was right in substance — Aqua Wash does not draw cards — but
+hedged ("I can't confirm that from the card … the answer from this
+source is that it is not stated") where the other abstentions in the
+set speak plainly. It now reads:
+
+> The card does not say that. Aqua Wash's text says only: "You may put
+> 2 Energy attached to your opponent's Active Pokémon into their hand."
+> It does not say anything about drawing cards.
+
+(the quote is Aqua Wash's verbatim card text from the exam source).
+
+Updated artifacts: `dataset-b.csv` SHA-256
+51757e2c29ca08194646eaa56d731a08c6c52a9ba12453da18c26a01cedfd154;
+`dataset-b-TRAINING.jsonl` SHA-256
+edfe5944439b07d28e8b5fd72503245b05f8286cd1689e9c5526db9961ded227
+(18 samples; only the LEX-T048 completion changed). Both were
+re-uploaded to the HF dataset repo `CardCauldronTCG/lexsi-dataset-b`.
+
+Honesty note: checkpoint-60 was trained on the PRE-correction Dataset
+B (with the original hedged LEX-T048 wording). The gate PASS above was
+measured on exam-v1, which is unchanged, and the exam grades the
+model's own answers — so the 150/150 stands as recorded — but it was
+earned with the pre-correction dataset. No re-train or re-grade was
+run for this wording fix.
